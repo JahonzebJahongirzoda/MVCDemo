@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+using AutoMapper;
+>>>>>>> Stashed changes
 using Domain.Dtos;
 using Domain.Entities;
 using Infrastructure.Context;
@@ -5,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Services;
 
+<<<<<<< Updated upstream
 public class EmployeeService:IEmployeeService
 {
     private readonly DataContext _context;
@@ -98,6 +103,44 @@ public class EmployeeService:IEmployeeService
         await _context.SaveChangesAsync();
         
         return true;
+=======
+public class EmployeeService : IEmployeeService
+{
+    private readonly DataContext _context;
+    private readonly IMapper _mapper;
+
+    public EmployeeService(DataContext context, IMapper mapper)
+    {
+        _context = context;
+        _mapper = mapper;
+    }
+    public async Task<Response<List<GetEmployeeWithDepartmentDto>>> GetEmployeeWithDepartmentDto()
+    {
+        var challanges = await (
+            from e in _context.Employees
+            join d in _context.Departments on e.DepartmentId equals  d.DepartmentId
+            
+            select new GetEmployeeWithDepartmentDto() {}
+        ).ToListAsync();
+    
+        return new Response<List<GetEmployeeWithDepartmentDto>>(challanges);
+    }
+    
+    public async Task<Response<GetEmployeeDto>> AddEmployee(GetEmployeeDto model)
+    {
+        try
+        {
+            var group = _mapper.Map<Employee>(model);
+            await _context.Employees.AddAsync(group);
+            await _context.SaveChangesAsync();
+            model.EmployeeId = group.EmployeeId;
+            return new Response<GetEmployeeDto>(model);
+        }
+        catch (System.Exception ex)
+        {
+            return new Response<GetEmployeeDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+        }
+>>>>>>> Stashed changes
     }
     
     

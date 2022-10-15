@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context;
 
+<<<<<<< Updated upstream
 public class DataContext:DbContext
 {
     
@@ -12,6 +13,14 @@ public class DataContext:DbContext
         
     }
     
+=======
+public class DataContext : DbContext
+{
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+
+    }
+>>>>>>> Stashed changes
     public DbSet<Department> Departments { get; set; }
     public DbSet<Employee> Employees { get; set; }
 

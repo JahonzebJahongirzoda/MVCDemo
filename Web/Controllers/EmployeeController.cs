@@ -1,9 +1,13 @@
+<<<<<<< Updated upstream
 using Domain.Dtos;
+=======
+>>>>>>> Stashed changes
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
 
+<<<<<<< Updated upstream
 public class EmployeeController:Controller
 {
     private readonly IEmployeeService _employeeService;
@@ -60,3 +64,31 @@ public class EmployeeController:Controller
     }
 
 }
+=======
+
+public class EmployeeController : Controller            
+{
+    private readonly IEmployeeService _challengeService;
+
+    public EmployeeController(IEmployeeService challengeService)
+    {
+        _challengeService = challengeService;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEmployeeWithDepartmentDto()
+    {
+        var challenges = await _challengeService.GetEmployeeWithDepartmentDto();
+        return View(challenges);
+    }
+    
+    // [HttpPost]
+    // public async Task<IActionResult> Post(GetEmployeeDto model)
+    // {
+    //     var newEmployee = await _challengeService.AddEmployee(model);
+    //     return View(newEmployee);
+    // }
+    
+   
+}
+>>>>>>> Stashed changes
